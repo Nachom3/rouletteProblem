@@ -35,11 +35,37 @@ class Player:
                 self.notebook.pop()
     def won(self, outcome):
         return outcome in BET_NUMBERS[self.betType] # It retuns True if outcome is inside the betType numbers.
+
+    def updateBalance(self, won, bet):
+        if won:
+            self.balance += 2 * bet
+        else:
+            self.balance -= bet
+
 class Roulette:
     def spinRoulette(self):
         return random.randint(0, 36)
 
-players = { playerA = Player("Red"), playerB = Player("Black"), playerC = Player("High"),playerD = Player("Low"), playerE = Player("Odd"),playerF = Player("Even")}
 
+playerA = Player("Red")
+playerB = Player("Black")
+playerC = Player("High")
+playerD = Player("Low")
+playerE = Player("Odd")
+playerF = Player("Even")
+
+players = [playerA, playerB, playerC, playerD, playerE, playerF] # I put the players in a list to iterate over them.
+
+roulette = Roulette() # Initialize the roulette.
+
+
+teamBalance = 0
 for _ in range(0,10000):
-    
+    outcome = roulette.spinRoulette()
+    for player in players:
+        if len(player.notebook) == 0:
+            player.reset_notebook()
+        bet = player.calculate_bet()
+        wonResult = player.won(outcome)
+        player.refresh_notebook(wonResult, bet)
+        player.updateBalance(wonResult, bet)
