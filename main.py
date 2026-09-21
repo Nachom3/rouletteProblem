@@ -7,8 +7,9 @@ def boundariesCheck(bet):
     else:
         return False 
 
-def main():
-    playerA = Player("Red")
+def main(): # here we run the program it self. 
+    #We initializes the players and its BidType
+    playerA = Player("Red") 
     playerB = Player("Black")
     playerC = Player("High")
     playerD = Player("Low")
@@ -18,8 +19,8 @@ def main():
     players = [playerA, playerB, playerC, playerD, playerE, playerF] # I put the players in a list to iterate over them.
     roulette = Roulette() # Initialize the roulette.
 
-    teamBalance = 0
-    for _ in range(0,10000):
+    teamBalance = 0 #Initialize the teamBalance
+    for _ in range(0,10000): # Here we manage the loop logic and function calls. 
         outcome = roulette.spinRoulette()
         for player in players:
             if (len(player.notebook)== 0):
@@ -43,5 +44,5 @@ def main():
     else:
         print("The team broke even.")
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     main()

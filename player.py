@@ -1,6 +1,6 @@
 import constants
 
-BET_NUMBERS = {
+BET_NUMBERS = { # We create a dictonary so we map each betType to its winning numbers.
     "Red": constants.RedNumbers,
     "Black": constants.BlackNumbers,
     "High": constants.HighNumbers,
@@ -8,8 +8,7 @@ BET_NUMBERS = {
     "Odd": constants.OddNumbers,
     "Even": constants.EvenNumbers
 }
-class Player:
-
+class Player: # It cointains 5 methods. 
     def __init__(self, betType):
         self.betType = betType
         self.notebook = [1, 2, 3, 4]
@@ -35,7 +34,7 @@ class Player:
     def won(self, outcome):
         return outcome in BET_NUMBERS[self.betType] # It retuns True if outcome is inside the betType numbers.
 
-    def updateBalance(self, won, bet):
+    def updateBalance(self, won, bet): # It updates the balance acording the outcome(win or lose)
         if won:
             self.balance += bet
         else:
