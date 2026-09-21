@@ -38,7 +38,7 @@ class Player:
 
     def updateBalance(self, won, bet):
         if won:
-            self.balance += 2 * bet
+            self.balance += bet
         else:
             self.balance -= bet
 
@@ -48,9 +48,9 @@ class Roulette:
 
 def boundariesCheck(bet):
     if bet > 4000 or bet < 5:
-        return False
-    else:
         return True
+    else:
+        return False 
 
 playerA = Player("Red")
 playerB = Player("Black")
@@ -66,11 +66,21 @@ teamBalance = 0
 for _ in range(0,10000):
     outcome = roulette.spinRoulette()
     for player in players:
-        bet = player.calculate_bet()
-        if (len(player.notebook)== 0) or boundariesCheck(bet):
+        if (len(player.notebook)== 0):
             player.reset_notebook()
+        bet = player.calculate_bet()
+        if boundariesCheck(bet):
+            player.reset_notebook()
+            bet = player.calculate_bet() # bet = 5.
         wonResult = player.won(outcome)
         player.refresh_notebook(wonResult, bet)
         player.updateBalance(wonResult, bet)
 
+teamBalance = sum(player.balance for player in players)
 
+print("Team balance:", teamBalance)
+
+if teamBalance > 0:
+    print("The team won.")
+else: 
+    print("The team lost.")
