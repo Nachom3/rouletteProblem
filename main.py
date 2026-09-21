@@ -38,9 +38,10 @@ def main():
 
     if teamBalance > 0:
         print("The team won.")
-    else: 
+    elif teamBalance < 0:
         print("The team lost.")
-
+    else:
+        print("The team broke even.")
 
 if __name__ == "__main__":
     main()
