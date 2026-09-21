@@ -46,6 +46,11 @@ class Roulette:
     def spinRoulette(self):
         return random.randint(0, 36)
 
+def boundariesCheck(bet):
+    if bet > 4000 or bet < 5:
+        return False
+    else:
+        return True
 
 playerA = Player("Red")
 playerB = Player("Black")
@@ -55,17 +60,17 @@ playerE = Player("Odd")
 playerF = Player("Even")
 
 players = [playerA, playerB, playerC, playerD, playerE, playerF] # I put the players in a list to iterate over them.
-
 roulette = Roulette() # Initialize the roulette.
-
 
 teamBalance = 0
 for _ in range(0,10000):
     outcome = roulette.spinRoulette()
     for player in players:
-        if len(player.notebook) == 0:
-            player.reset_notebook()
         bet = player.calculate_bet()
+        if (len(player.notebook)== 0) or boundariesCheck(bet):
+            player.reset_notebook()
         wonResult = player.won(outcome)
         player.refresh_notebook(wonResult, bet)
         player.updateBalance(wonResult, bet)
+
+
