@@ -7,8 +7,8 @@ def boundariesCheck(bet):
     else:
         return False 
 
-def main(): # here we run the program it self. 
-    #We initializes the players and its BidType
+def main():  # Runs the simulation. 
+    # Initialize the players with their bet types.
     playerA = Player("Red") 
     playerB = Player("Black")
     playerC = Player("High")
@@ -16,11 +16,11 @@ def main(): # here we run the program it self.
     playerE = Player("Odd")
     playerF = Player("Even")
 
-    players = [playerA, playerB, playerC, playerD, playerE, playerF] # I put the players in a list to iterate over them.
-    roulette = Roulette() # Initialize the roulette.
+    players = [playerA, playerB, playerC, playerD, playerE, playerF]  # Group the players in a list to iterate over them.
+    roulette = Roulette()  # Initialize the roulette.
 
-    teamBalance = 0 #Initialize the teamBalance
-    for _ in range(0,10000): # Here we manage the loop logic and function calls. 
+    teamBalance = 0  # Initialize the team balance.
+    for _ in range(0,10000):  # Run the simulation loop and update each player. 
         outcome = roulette.spinRoulette()
         for player in players:
             if (len(player.notebook)== 0):
@@ -28,7 +28,7 @@ def main(): # here we run the program it self.
             bet = player.calculate_bet()
             if boundariesCheck(bet):
                 player.reset_notebook()
-                bet = player.calculate_bet() # bet = 5.
+                bet = player.calculate_bet()  # Recomputed after reset (5 with the initial notebook [1, 2, 3, 4]).
             wonResult = player.won(outcome)
             player.refresh_notebook(wonResult, bet)
             player.updateBalance(wonResult, bet)
